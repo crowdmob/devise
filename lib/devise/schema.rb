@@ -29,6 +29,7 @@ module Devise
 
       apply_devise_schema :email,              String, :null => null, :default => default if include_email
       apply_devise_schema :encrypted_password, String, :null => null, :default => default, :limit => 128
+      apply_devise_schema :password_initialized, Boolean, :null => null, :default => false
     end
 
     # Creates password salt for encryption support when using encryptors other

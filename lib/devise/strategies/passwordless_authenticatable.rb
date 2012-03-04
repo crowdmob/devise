@@ -5,24 +5,20 @@ module Devise
     # Default strategy for signing in a user, based on his email and password in the database.
     class PasswordlessAuthenticatable < Authenticatable
       def authenticate!
-        if params[:controller] == 'users' && (['create', 'new'].include? params[:action])
-          resource = mapping.to.find_for_database_authentication(authentication_hash)
+        resource = mapping.to.find_for_database_authentication(authentication_hash)
 
-          if resource
-            resource.after_database_authentication
-            success!(resource)
-          elsif !halted?
-            fail(:invalid)
-          end
-        else
-          resource = valid_password? && mapping.to.find_for_database_authentication(authentication_hash)
-
+        if resource.password_initialized
+          resource = valid_password? && resource
+          
           if validate(resource){ resource.valid_password?(password) }
             resource.after_database_authentication
             success!(resource)
           elsif !halted?
             fail(:invalid)
           end
+        else resource
+          resource.after_database_authentication
+          success!(resource)
         end
       end
     end
