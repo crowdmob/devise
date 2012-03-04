@@ -35,6 +35,7 @@ module Devise
       def password=(new_password)
         @password = new_password
         self.encrypted_password = password_digest(@password) if @password.present?
+        self.password_initialized = true if @password.present?
       end
 
       # Verifies whether an password (ie from sign in) is the user password.
