@@ -18,4 +18,4 @@ module Devise
   end
 end
 
-Warden::Strategies.add(:passwordless_authenticatable, Devise::Strategies::DatabaseAuthenticatable)
+Warden::Strategies.add(:passwordless_authenticatable, Devise::Strategies::PasswordlessAuthenticatable)
