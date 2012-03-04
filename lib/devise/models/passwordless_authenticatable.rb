@@ -19,7 +19,7 @@ module Devise
     #
     #    User.find(1).valid_password?('password123')         # returns true/false
     #
-    module DatabaseAuthenticatable
+    module PasswordlessAuthenticatable
       extend ActiveSupport::Concern
 
       included do
