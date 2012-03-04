@@ -22,6 +22,15 @@ module Devise
       apply_devise_schema :encrypted_password, String, :null => null, :default => default, :limit => 128
     end
 
+    def passwordless_authenticatable(options={})
+      null    = options[:null] || false
+      default = options.key?(:default) ? options[:default] : ("" if null == false)
+      include_email = !respond_to?(:authentication_keys) || self.authentication_keys.include?(:email)
+
+      apply_devise_schema :email,              String, :null => null, :default => default if include_email
+      apply_devise_schema :encrypted_password, String, :null => null, :default => default, :limit => 128
+    end
+
     # Creates password salt for encryption support when using encryptors other
     # than the database_authenticable default of bcrypt.
     def encryptable

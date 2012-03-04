@@ -7,6 +7,8 @@ gem "omniauth", "~> 1.0.0"
 gem "omniauth-oauth2", "~> 1.0.0"
 gem "rdoc"
 
+gem "aws-sdk"
+
 group :test do
   gem "omniauth-facebook"
   gem "omniauth-openid", "~> 1.0.1"
