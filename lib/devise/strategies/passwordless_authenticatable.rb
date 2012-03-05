@@ -17,7 +17,6 @@ module Devise
             elsif !halted?
               fail(:invalid)
             end
-          end
           else resource
             resource.after_database_authentication
             success!(resource)
