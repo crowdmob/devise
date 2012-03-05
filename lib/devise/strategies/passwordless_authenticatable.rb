@@ -7,7 +7,7 @@ module Devise
       def authenticate!
         resource = mapping.to.find_for_database_authentication(authentication_hash)
 
-        if resource.respond_to?(password_initialized)
+        if resource.respond_to?(:password_initialized)
           if resource.password_initialized
             resource = valid_password? && resource
           
@@ -18,9 +18,12 @@ module Devise
               fail(:invalid)
             end
           end
-        else resource
-          resource.after_database_authentication
-          success!(resource)
+          else resource
+            resource.after_database_authentication
+            success!(resource)
+          end
+        else
+          fail(:invalid)
         end
       end
     end
